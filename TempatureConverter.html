@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Temperature Converter</title>
+</head>
+    <style>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.converter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input, select, button {
+    padding: 10px;
+    margin-top: 5px;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+p {
+    color: #555;
+}
+
+</style>
+    <script>
+function convertTemperature() {
+    var temperatureInput = document.getElementById('temperature');
+    var fromUnit = document.getElementById('from').value;
+    var toUnit = document.getElementById('to').value;
+    var resultValue = document.getElementById('resultValue');
+
+    // Check if the input is a valid number
+    if (isNaN(temperatureInput.value)) {
+        alert('Please enter a valid number for temperature.');
+        return;
+    }
+
+    // Convert temperatures
+    var temperatureValue = parseFloat(temperatureInput.value);
+    var result;
+
+    if (fromUnit === 'celsius' && toUnit === 'fahrenheit') {
+        result = (temperatureValue * 9/5) + 32;
+    } else if (fromUnit === 'celsius' && toUnit === 'kelvin') {
+        result = temperatureValue + 273.15;
+    } else if (fromUnit === 'fahrenheit' && toUnit === 'celsius') {
+        result = (temperatureValue - 32) * 5/9;
+    } else if (fromUnit === 'fahrenheit' && toUnit === 'kelvin') {
+        result = (temperatureValue - 32) * 5/9 + 273.15;
+    } else if (fromUnit === 'kelvin' && toUnit === 'celsius') {
+        result = temperatureValue - 273.15;
+    } else if (fromUnit === 'kelvin' && toUnit === 'fahrenheit') {
+        result = (temperatureValue - 273.15) * 9/5 + 32;
+    } else {
+        result = temperatureValue; // If the units are the same
+    }
+
+    // Display the result
+    resultValue.textContent = `Converted temperature: ${result.toFixed(2)} ${toUnit.toUpperCase()}`;
+}
+</script>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <div class="converter">
+            <div>
+                <label for="temperature">Temperature:</label>
+                <input type="number" id="temperature" placeholder="Enter temperature">
+            </div>
+            <div>
+                <label for="from">From:</label>
+                <select id="from">
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+            </div>
+            <div>
+                <label for="to">To:</label>
+                <select id="to">
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+            </div>
+            <button onclick="convertTemperature()">Convert</button>
+        </div>
+        <div class="result">
+            <h2>Result:</h2>
+            <p id="resultValue">Converted temperature will be displayed here.</p>
+        </div>
+    </div>
+
+    <script></script>
+</body>
+</html>
